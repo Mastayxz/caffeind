@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Register</title>
+    <title>Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Tambahkan Tailwind CSS atau Bootstrap jika perlu -->
     {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
@@ -35,6 +35,19 @@
             </nav>
         </div>
     </header>
+    @if (session('success'))
+        <div class="bg-green-100 text-green-800 p-2 mb-4 rounded">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if ($errors->any())
+        <div class="bg-red-100 text-red-800 p-2 mb-4 rounded">
+            @foreach ($errors->all() as $error)
+                <p>{{ $error }}</p>
+            @endforeach
+        </div>
+    @endif
     <section class="w-full h-[600px] bg-center bg-no-repeat bg-cover"
         style="background-image: url('{{ asset('images/Caffeind.png') }}')">
 

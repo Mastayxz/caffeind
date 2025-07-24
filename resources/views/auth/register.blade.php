@@ -22,6 +22,15 @@
                 <img src="{{ asset('images/BrandLogo.png') }}" alt="Sawah Bank Icon"
                     class="h-16 w-auto mx-auto mb-6 rounded object-contain">
                 <h2 class="text-3xl font-bold text-center text-white mb-8">Buat Akun </h2>
+                @if ($errors->any())
+                    <div class="mb-4">
+                        <ul class="list-disc list-inside text-sm text-red-200 bg-red-900 bg-opacity-60 rounded p-3">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <form method="POST" action="{{ route('register.post') }}" class="space-y-4">
                     @csrf
                     <div>
