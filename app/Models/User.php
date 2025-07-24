@@ -22,7 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        // 'image',
+        'image',
         'role', // Assuming 'role' is a field in the users table
     ];
 

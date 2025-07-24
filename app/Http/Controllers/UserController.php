@@ -51,7 +51,7 @@ class UserController extends Controller
 
     public function home()
     {
-        $products = Product::all();
+        $products = Product::latest()->take(4)->get();
         // $categories = Category::all();
         return view('home', compact('products'));
     }
