@@ -7,7 +7,7 @@ use App\Http\Controllers\Admin\CategoryController;
 
 // use App\Http\Controllers\AdminController;
 
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::prefix('admin')->middleware(['auth','isAdmin'])->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name(name: 'dashboard');
     Route::get('/users', [AdminController::class, 'showUser'])->name('users');
     Route::put('/users/{id}', [AdminController::class, 'updateUser'])->name('user.update');
