@@ -114,86 +114,96 @@
 
                                 <!-- Modal body with proper padding -->
                                 <div class="p-6 space-y-6">
-                                    <div class="grid grid-cols-1 gap-6">
-                                        <div>
-                                            <label class="block mb-2 text-sm font-medium text-gray-900">Product
-                                                Name</label>
-                                            <input type="text"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#706D54] focus:border-[#706D54] block w-full p-2.5"
-                                                value="product">
-                                        </div>
-                                        <div>
-                                            <label for="category_id"
-                                                class="block mb-2 text-sm font-medium text-gray-900">Category</label>
-                                            <select id="category_id" name="category_id" required
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#706D54] focus:border-[#706D54] block w-full p-2.5">
-                                                <option value="" hidden>Select category</option>
-                                                @foreach ($categories as $cat)
-                                                    <option value="{{ $cat->id }}"
-                                                        {{ old('category_id', $product->category_id ?? '') == $cat->id ? 'selected' : '' }}>
-                                                        {{ $cat->name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                            @error('category_id')
-                                                <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-                                            @enderror
-                                        </div>
-                                        <div class="grid grid-cols-2 gap-4">
+                                    <form action="{{ route('admin.product.update', $product->id) }}" method="post"
+                                        enctype="multipart/form-data">
+                                        @csrf
+                                        @method('PUT')
+
+                                        <div class="grid grid-cols-1 gap-6">
                                             <div>
-                                                <label class="block mb-2 text-sm font-medium text-gray-900">Price</label>
-                                                <input type="number"
+                                                <label class="block mb-2 text-sm font-medium text-gray-900">Product
+                                                    Name</label>
+                                                <input type="text"
                                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#706D54] focus:border-[#706D54] block w-full p-2.5"
-                                                    value="10000">
+                                                    name="name" value="{{ old('name', $product->name) }}">
                                             </div>
                                             <div>
-                                                <label class="block mb-2 text-sm font-medium text-gray-900">Stock</label>
-                                                <input type="number"
-                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#706D54] focus:border-[#706D54] block w-full p-2.5"
-                                                    value="5">
+                                                <label for="category_id"
+                                                    class="block mb-2 text-sm font-medium text-gray-900">Category</label>
+                                                <select id="category_id" name="category_id" required
+                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#706D54] focus:border-[#706D54] block w-full p-2.5">
+                                                    <option value="" hidden>Select category</option>
+                                                    @foreach ($categories as $cat)
+                                                        <option value="{{ $cat->id }}"
+                                                            {{ old('category_id', $product->category_id ?? '') == $cat->id ? 'selected' : '' }}>
+                                                            {{ $cat->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                @error('category_id')
+                                                    <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                                                @enderror
                                             </div>
-                                        </div>
+                                            <div class="grid grid-cols-2 gap-4">
+                                                <div>
+                                                    <label
+                                                        class="block mb-2 text-sm font-medium text-gray-900">Price</label>
+                                                    <input type="number"
+                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#706D54] focus:border-[#706D54] block w-full p-2.5"
+                                                        name="price" value="{{ old('price', $product->price) }}">
+                                                </div>
+                                                <div>
+                                                    <label
+                                                        class="block mb-2 text-sm font-medium text-gray-900">Stock</label>
+                                                    <input type="number"
+                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#706D54] focus:border-[#706D54] block w-full p-2.5"
+                                                        name="stock" value="{{ old('stock', $product->stock) }}">
+                                                </div>
+                                            </div>
 
-                                        <div>
-                                            <label class="block mb-2 text-sm font-medium text-gray-900">Description</label>
-                                            <textarea
-                                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-[#706D54] focus:border-[#706D54]"
-                                                rows="4">product</textarea>
-                                        </div>
-
-                                        <div>
-                                            <label class="block mb-2 text-sm font-medium text-gray-900">Upload
-                                                Image</label>
-                                            <div class="flex items-center justify-center w-full">
+                                            <div>
                                                 <label
-                                                    class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
-                                                    <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                                        <svg class="w-8 h-8 mb-4 text-gray-500" aria-hidden="true"
-                                                            xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                            viewBox="0 0 20 16">
-                                                            <path stroke="currentColor" stroke-linecap="round"
-                                                                stroke-linejoin="round" stroke-width="2"
-                                                                d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-                                                        </svg>
-                                                        <p class="mb-2 text-sm text-gray-500"><span
-                                                                class="font-semibold">Click to upload</span> or drag and
-                                                            drop</p>
-                                                        <p class="text-xs text-gray-500">PNG, JPG, JPEG (MAX. 2MB)</p>
-                                                    </div>
-                                                    <input type="file" class="hidden" />
-                                                </label>
+                                                    class="block mb-2 text-sm font-medium text-gray-900">Description</label>
+                                                <textarea name="description"
+                                                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-[#706D54] focus:border-[#706D54]"
+                                                    rows="4">{{ old('description', $product->description) }}</textarea>
+                                            </div>
+
+                                            <div>
+                                                <label class="block mb-2 text-sm font-medium text-gray-900">Upload
+                                                    Image</label>
+                                                <div class="flex items-center justify-center w-full">
+                                                    <label
+                                                        class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
+                                                        <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                                            <svg class="w-8 h-8 mb-4 text-gray-500" aria-hidden="true"
+                                                                xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                viewBox="0 0 20 16">
+                                                                <path stroke="currentColor" stroke-linecap="round"
+                                                                    stroke-linejoin="round" stroke-width="2"
+                                                                    d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                                                            </svg>
+                                                            <p class="mb-2 text-sm text-gray-500"><span
+                                                                    class="font-semibold">Click to upload</span> or drag
+                                                                and
+                                                                drop</p>
+                                                            <p class="text-xs text-gray-500">PNG, JPG, JPEG (MAX. 2MB)</p>
+                                                        </div>
+                                                        <input type="file" class="hidden" name="image" />
+                                                    </label>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
                                 </div>
 
                                 <!-- Modal footer with border top -->
                                 <div class="flex items-center p-6 space-x-3 border-t border-gray-200 rounded-b">
-                                    <button type="button"
+                                    <button type="submit"
                                         class="text-white bg-[#706D54] hover:bg-[#504d30] focus:ring-4 focus:outline-none focus:ring-[#b3ac73] font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                                         Update Product
                                     </button>
                                 </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -345,108 +355,7 @@
         </div>
     </div>
 
-    <!-- Edit Product Modal -->
-    <div id="edit-product-modal" tabindex="-1" aria-hidden="true"
-        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div class="relative p-4 w-full max-w-2xl max-h-full">
-            <!-- Modal content -->
-            <div class="relative bg-white rounded-lg shadow border border-gray-200">
-                <!-- Modal header -->
-                <div class="flex items-center justify-between p-4 border-b rounded-t border-gray-200">
-                    <h3 class="text-xl font-semibold text-gray-900">
-                        Edit Product
-                    </h3>
-                    <button type="button"
-                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
-                        data-modal-toggle="edit-product-modal">
-                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 14 14">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                        </svg>
-                        <span class="sr-only">Close modal</span>
-                    </button>
-                </div>
 
-                <!-- Modal body -->
-                <form class="p-6 space-y-6" method="POST" action="{{ route('admin.product.update', $product->id) }}"
-                    enctype="multipart/form-data">
-                    @csrf
-                    @method('PUT')
-                    <div class="grid grid-cols-1 gap-6">
-                        <div>
-                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Product
-                                Name</label>
-                            <input type="text" name="name" id="name" value="{{ $product->name }}"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#706D54] focus:border-[#706D54] block w-full p-2.5"
-                                placeholder="Product name" required>
-                        </div>
-
-
-
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label for="price" class="block mb-2 text-sm font-medium text-gray-900">Price</label>
-                                <input type="number" name="price" id="price" value="{{ $product->price }}"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#706D54] focus:border-[#706D54] block w-full p-2.5"
-                                    placeholder="Rp. 99.000" required>
-                            </div>
-                            <div>
-                                <label for="stock" class="block mb-2 text-sm font-medium text-gray-900">Stock</label>
-                                <input type="number" name="stock" id="stock" value="{{ $product->stock }}"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#706D54] focus:border-[#706D54] block w-full p-2.5"
-                                    placeholder="100" required>
-                            </div>
-                        </div>
-
-                        <div>
-                            <label for="description"
-                                class="block mb-2 text-sm font-medium text-gray-900">Description</label>
-                            <textarea id="description" name="description" rows="4"
-                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-[#706D54] focus:border-[#706D54]"
-                                placeholder="Product description">{{ $product->description }}</textarea>
-                        </div>
-
-                        <div>
-                            <label class="block mb-2 text-sm font-medium text-gray-900">Upload Image</label>
-                            <div class="flex items-center justify-center w-full">
-                                <label for="dropzone-file"
-                                    class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
-                                    <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                        <svg class="w-8 h-8 mb-4 text-gray-500" aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-                                        </svg>
-                                        <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Click to
-                                                upload</span> or drag and drop</p>
-                                        <p class="text-xs text-gray-500">PNG, JPG, JPEG (MAX. 2MB)</p>
-                                    </div>
-                                    <input id="dropzone-file" name="image" type="file" class="hidden" />
-                                </label>
-                            </div>
-                            @if ($product->image)
-                                <div class="mt-3 flex items-center">
-                                    <span class="text-sm font-medium text-gray-500 mr-2">Current Image:</span>
-                                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
-                                        class="h-12 w-12 object-cover rounded">
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-
-                    <!-- Modal footer -->
-                    <div class="flex items-center pt-6 border-t border-gray-200">
-                        <button type="submit"
-                            class="text-white bg-[#706D54] hover:bg-[#504d30] focus:ring-4 focus:outline-none focus:ring-[#b3ac73] font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                            Update Product
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.3.0/dist/flowbite.min.js"></script>
 @endsection
