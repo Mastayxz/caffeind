@@ -1,5 +1,6 @@
 @extends('layouts.admin')
 
+{{-- @section('title', 'Products Details') --}}
 @section('content')
     <div class="mb-4 flex justify-between items-center">
         <h1 class="text-4xl font-bold text-gray-900">Product Details</h1>
