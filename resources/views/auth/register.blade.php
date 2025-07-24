@@ -52,7 +52,7 @@
                     </div>
                     <div>
                         <label for="address" class="text-sm font-medium text-gray-300">Alamat</label>
-                        <input type="text" name="phone" placeholder="Phone" value="{{ old('phone') }}" required
+                        <input type="text" name="address" placeholder="Alamat" value="{{ old('address') }}" required
                             class="w-full px-4 py-3 mt-1 bg-gray-800 bg-opacity-50 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-amber-500">
                     </div>
                     <input type="hidden" name="role" value="user">

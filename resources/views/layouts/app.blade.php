@@ -54,9 +54,24 @@
         <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
     </main>
 
-    {{-- <footer class="text-center mt-10 text-sm text-gray-500 py-4">
-        &copy; {{ date('Y') }} MyApp. All rights reserved.
-    </footer> --}}
+    <footer class="bg-white shadow mt-10 py-6">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between">
+            <div class="flex items-center space-x-2 mb-2 md:mb-0">
+                <img src="{{ asset('images/BrandLogo.png') }}" alt="Caffeind Logo" class="w-8 h-auto">
+                <span class="font-semibold text-gray-700">Caffeind</span>
+            </div>
+            <div class="text-gray-500 text-sm">
+                &copy; {{ date('Y') }} Caffeind. All rights reserved.
+            </div>
+            <div class="flex space-x-4">
+                <a href="#" class="hover:text-blue-500 transition-colors"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="hover:text-pink-500 transition-colors"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="hover:text-blue-400 transition-colors"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+    <!-- Font Awesome CDN for icons -->
+    <script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script>
 
 </body>
 
