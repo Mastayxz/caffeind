@@ -16,26 +16,34 @@
             style="background-image: url('{{ asset('images/caffeind-bg.jpg') }}'); background-size: cover; background-position: center;">
         </div>
         <div class="bg-gradient-to-br from-[#543310] to-[#AF8F6F] backdrop-blur-md flex items-center justify-center p-8">
-
-
             <div class="w-full max-w-sm">
                 <img src="{{ asset('images/BrandLogo.png') }}" alt="Sawah Bank Icon"
                     class="h-16 w-auto mx-auto mb-6 rounded object-contain">
                 <h2 class="text-3xl font-bold text-center text-white mb-8">Buat Akun </h2>
+                @if ($errors->any())
+                    <div class="mb-4">
+                        <ul class="list-disc list-inside text-sm text-red-200 bg-red-900 bg-opacity-60 rounded p-3">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <form method="POST" action="{{ route('login.post') }}" class="space-y-4">
                     @csrf
 
                     <div>
                         <label for="email" class="text-sm font-medium text-gray-300">Alamat Email</label>
                         <input type="email" name="email" placeholder="Email" value="{{ old('email') }}" required
-                            class="w-full px-4 py-3 mt-1 bg-gray-800 bg-opacity-50 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+                            class="w-full px-4 py-3 mt-1 bg-gray-800 bg-opacity-50 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-amber-500 @error('email') border-red-500 @enderror">
+
                     </div>
                     <div>
                         <label for="password" class="text-sm font-medium text-gray-300">Password</label>
                         <input type="password" name="password" placeholder="Password" required
-                            class="w-full px-4 py-3 mt-1 bg-gray-800 bg-opacity-50 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-amber-500">
-                    </div>
+                            class="w-full px-4 py-3 mt-1 bg-gray-800 bg-opacity-50 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-amber-500 @error('password') border-red-500 @enderror">
 
+                    </div>
 
                     <div>
                         <button type="submit"
