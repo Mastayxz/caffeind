@@ -43,6 +43,12 @@
             </div>
         @endif
 
+        @if (session('error'))
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                {{ session('error') }}
+            </div>
+        @endif
+
         @if ($errors->any())
             <div class="bg-red-100 text-red-800 p-2 mb-4 rounded">
                 @foreach ($errors->all() as $error)

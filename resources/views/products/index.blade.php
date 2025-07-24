@@ -39,9 +39,26 @@
                     @if ($product->stock)
                         <p class="text-sm mt-1">Stock: {{ $product->stock }}</p>
                     @endif
-                    <a href="{{ route('products.show', $product->id) }}"
-                        class="mt-4 inline-block bg-coffee-brown text-cream px-4 py-2 rounded hover:bg-dark-brown transition-colors duration-300">View
-                        Details</a>
+
+                    <div class="flex items-center space-x-2 mt-4">
+                        <a href="{{ route('products.show', $product->id) }}"
+                            class="inline-block bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700 transition-colors duration-300 text-sm">
+                            View Details
+                        </a>
+                        @if ($product->stock > 0)
+                            <form action="{{ route('cart.store') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <input type="hidden" name="quantity" value="1">
+                                <button type="submit"
+                                    class="inline-block bg-coffee-brown text-cream px-4 py-2 rounded hover:bg-dark-brown transition-colors duration-300 cursor-pointer text-sm">
+                                    Masukkan Ke Keranjang
+                                </button>
+                            </form>
+                        @else
+                            <p class="text-sm mt-1 text-red-600 font-bold">Stok Habis</p>
+                        @endif
+                    </div>
                 </div>
             @endforeach
         </div>
