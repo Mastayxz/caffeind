@@ -12,10 +12,17 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::all();
-        return view('admin.product.index', compact('products'));
+        $search = $request->input('search');
+        
+        $products = Product::when($search, function ($query, $search) {
+                return $query->where('name', 'like', '%' . $search . '%');
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate(10); // 10 item per halaman
+
+        return view('admin.product.index', compact('products', 'search'));
     }
 
     /**
