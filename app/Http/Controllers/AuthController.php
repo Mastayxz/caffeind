@@ -79,7 +79,7 @@ class AuthController extends Controller
             // Auto login setelah register (opsional)
             Auth::login($user);
 
-            return redirect('/')->with('success', 'Registrasi berhasil');
+            return redirect()->route('home')->with('success', 'Registrasi berhasil');
         } catch (\Exception $e) {
             DB::rollBack();
 
