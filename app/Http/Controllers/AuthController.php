@@ -32,7 +32,12 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('/dashboard')->with('success', 'Login berhasil');
+            // Redirect berdasarkan role
+            if (Auth::user()->role === 'admin') {
+                return redirect()->intended('/admin/dashboard')->with('success', 'Login berhasil sebagai admin');
+            } else {
+                return redirect()->intended('/')->with('success', 'Login berhasil');
+            }
         }
 
         return back()->withErrors([
@@ -74,7 +79,7 @@ class AuthController extends Controller
             // Auto login setelah register (opsional)
             Auth::login($user);
 
-            return redirect('/dashboard')->with('success', 'Registrasi berhasil');
+            return redirect()->route('home')->with('success', 'Registrasi berhasil');
         } catch (\Exception $e) {
             DB::rollBack();
 
