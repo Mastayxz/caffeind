@@ -3,7 +3,6 @@
 @section('title', 'Checkout')
 
 @section('content')
-<div class="container mx-auto p-6">
     <div class="bg-white shadow-md rounded-lg p-8">
         <h1 class="text-3xl font-bold mb-8 text-center text-coffee-brown">Selesaikan Pesanan Anda</h1>
 

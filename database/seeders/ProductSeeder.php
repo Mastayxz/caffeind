@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\Category; // Import Model Category
@@ -14,22 +13,19 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        // Ambil ID kategori yang sudah dibuat oleh CategorySeeder
         $kopiId = Category::where('name', 'Minuman Kopi')->first()->id ?? null;
         $nonKopiId = Category::where('name', 'Minuman Non-Kopi')->first()->id ?? null;
         $makananRinganId = Category::where('name', 'Makanan Ringan')->first()->id ?? null;
         $dessertId = Category::where('name', 'Dessert')->first()->id ?? null;
-        $menuSpesialId = Category::where('name', 'Menu Spesial')->first()->id ?? null;
 
-        // Pastikan kategori ditemukan sebelum memasukkan produk
-        if ($kopiId && $nonKopiId && $makananRinganId && $dessertId && $menuSpesialId) {
+        if ($kopiId && $nonKopiId && $makananRinganId && $dessertId) {
             DB::table('products')->insert([
                 // Minuman Kopi
                 [
                     'name' => 'Espresso',
                     'price' => 25000.00,
                     'description' => 'Ekstrak kopi murni yang kaya rasa.',
-                    'stock' => 100, // Stok tinggi karena bahan baku utama
+                    'stock' => 100, 
                     'category_id' => $kopiId,
                     'image' => 'espresso.jpg',
                     'created_at' => now(),
@@ -138,18 +134,6 @@ class ProductSeeder extends Seeder
                     'stock' => 25,
                     'category_id' => $dessertId,
                     'image' => 'brownie_fudge.jpg',
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ],
-
-                // Menu Spesial
-                [
-                    'name' => 'Kopi Gula Aren',
-                    'price' => 42000.00,
-                    'description' => 'Kopi spesial dengan sentuhan manis gula aren asli.',
-                    'stock' => 30,
-                    'category_id' => $menuSpesialId,
-                    'image' => 'kopi_gula_aren.jpg',
                     'created_at' => now(),
                     'updated_at' => now(),
                 ],

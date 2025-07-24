@@ -31,8 +31,8 @@ class CheckoutController extends Controller
     public function processCheckout(Request $request)
     {
         $request->validate([
-            'order_type' => 'required|in:pickup,dine_in', // Validasi tipe pesanan
-            'payment_method' => 'required|in:cash,bank_transfer,qris', // Metode pembayaran
+            'order_type' => 'required|in:pickup,dine_in',
+            'payment_method' => 'required|in:cash,bank_transfer,qris',
         ]);
 
         $userId = Auth::id();
@@ -46,14 +46,13 @@ class CheckoutController extends Controller
 
         try {
             $totalAmount = 0;
-            $orderNumber = 'ORD-' . strtoupper(uniqid()); // Generate nomor pesanan unik sederhana
+            $orderNumber = 'ORD-' . strtoupper(uniqid());
 
             foreach ($cartItems as $item) {
-                $product = $item->product; // Ambil objek produk terkait
+                $product = $item->product;
 
-                // Pastikan produk ada dan stoknya mencukupi
                 if (!$product || $product->stock < $item->quantity) {
-                    DB::rollBack(); // Batalkan transaksi jika stok tidak cukup
+                    DB::rollBack();
                     return redirect()->route('cart.index')->with('error', 'Stok ' . ($product ? $product->name : 'produk tidak dikenal') . ' tidak mencukupi. Mohon sesuaikan kuantitas di keranjang.');
                 }
                 $totalAmount += $product->price * $item->quantity;
