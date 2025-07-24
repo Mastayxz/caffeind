@@ -15,10 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->float('price');
-            $table->integer('stock');
             $table->text('description')->nullable();
+            $table->integer('stock');
             $table->string('image')->nullable();
-
+            $table->foreignId('category_id')
+              ->constrained('categories')
+              ->onDelete('cascade');
             $table->timestamps();
         });
     }
