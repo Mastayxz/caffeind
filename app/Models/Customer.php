@@ -6,16 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
-    protected $table = 'products';
+    protected $fillable = ['user_id', 'phone', 'address'];
 
-    protected $fillable = [
-        'name',
-        'price',
-        'description',
-        'stock',
-        'category_id',
-        'image',
-        'created_at',
-        'updated_at',
-    ];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
