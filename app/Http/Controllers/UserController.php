@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Product;
+use App\Models\Category;
 
 class UserController extends Controller
 {
@@ -45,5 +47,12 @@ class UserController extends Controller
     {
         $user = Auth::user();
         return view('account.profile', compact('user'));
+    }
+
+    public function home()
+    {
+        $products = Product::all();
+        // $categories = Category::all();
+        return view('home', compact('products'));
     }
 }

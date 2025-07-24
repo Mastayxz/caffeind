@@ -19,7 +19,7 @@
 
 
             <div class="w-full max-w-sm">
-                <img src="{{ asset('images/logo.jpg') }}" alt="Sawah Bank Icon"
+                <img src="{{ asset('images/BrandLogo.png') }}" alt="Sawah Bank Icon"
                     class="h-16 w-auto mx-auto mb-6 rounded object-contain">
                 <h2 class="text-3xl font-bold text-center text-white mb-8">Buat Akun </h2>
                 <form method="POST" action="{{ route('register.post') }}" class="space-y-4">

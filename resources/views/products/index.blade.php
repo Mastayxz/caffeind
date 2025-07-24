@@ -7,24 +7,18 @@
     <h1>Products</h1>
     <ul>
         @foreach ($products as $product)
-            <li>
+<li>
                 <a href="{{ route('products.show', $product->id) }}">{{ $product->name }}</a>
                 - ${{ $product->price }}
             </li>
-        @endforeach
+@endforeach
     </ul>
 </body>
 </html> -->
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coffee Shop - Product List</title>
-    @vite(['resources/css/app.css'])
-</head>
-<body class="bg-cream text-dark-brown font-sans">
+@extends('layouts.app')
+@section('title', 'Product List')
+@section('content')
     <header class="bg-coffee-brown text-cream p-6 text-center">
         <h1 class="text-4xl font-bold">Coffee Shop Menu</h1>
     </header>
@@ -37,10 +31,11 @@
                     @if ($product->stock)
                         <p class="text-sm mt-1">Stock: {{ $product->stock }}</p>
                     @endif
-                    <a href="{{ route('products.show', $product->id) }}" class="mt-4 inline-block bg-coffee-brown text-cream px-4 py-2 rounded hover:bg-dark-brown transition-colors duration-300">View Details</a>
+                    <a href="{{ route('products.show', $product->id) }}"
+                        class="mt-4 inline-block bg-coffee-brown text-cream px-4 py-2 rounded hover:bg-dark-brown transition-colors duration-300">View
+                        Details</a>
                 </div>
             @endforeach
         </div>
     </main>
-</body>
-</html>
+@endsection

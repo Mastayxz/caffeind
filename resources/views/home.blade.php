@@ -29,7 +29,30 @@
             <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
                 <img src="{{ asset('images/caffeind-bg.jpg') }}" alt="mockup">
             </div>
+
+
         </div>
+
+    </section>
+    <section>
+        <main class="container mx-auto p-6">
+            <h1 class="text-3xl font-bold mb-6 text-center">Welcome to Caffeind</h1>
+            <p class="mb-4 text-center">Explore our products and services:</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                @foreach ($products as $product)
+                    <div class="bg-light-brown p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <h2 class="text-2xl font-semibold">{{ $product->name }}</h2>
+                        <p class="text-lg mt-2">${{ number_format($product->price, 2) }}</p>
+                        @if ($product->stock)
+                            <p class="text-sm mt-1">Stock: {{ $product->stock }}</p>
+                        @endif
+                        <a href="{{ route('products.show', $product->id) }}"
+                            class="mt-4 inline-block bg-coffee-brown text-cream px-4 py-2 rounded hover:bg-dark-brown transition-colors duration-300">View
+                            Details</a>
+                    </div>
+                @endforeach
+            </div>
+        </main>
     </section>
 
 @endsection

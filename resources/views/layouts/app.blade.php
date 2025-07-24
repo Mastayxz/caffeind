@@ -13,7 +13,13 @@
 
     <header class="bg-white shadow p-4 mb-6">
         <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-xl font-bold"><a href="{{ url('/') }}">Caffeind</a></h1>
+
+            <h1 class="text-xl font-bold flex items-center space-x-2">
+                <a href="{{ url('/') }}" class="flex items-center space-x-2">
+                    <img src="{{ asset('images/BrandLogo.png') }}" alt="" class="w-10 h-auto">
+                    <span>Caffeind</span>
+                </a>
+            </h1>
 
             <nav>
                 @auth
@@ -48,9 +54,9 @@
         <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
     </main>
 
-    <footer class="text-center mt-10 text-sm text-gray-500 py-4">
+    {{-- <footer class="text-center mt-10 text-sm text-gray-500 py-4">
         &copy; {{ date('Y') }} MyApp. All rights reserved.
-    </footer>
+    </footer> --}}
 
 </body>
 

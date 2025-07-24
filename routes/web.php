@@ -6,11 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 
-// Route::get('/', function () {
-//     return view('dashboard');
-// });
-
-Route::get('/', [ProductController::class, 'index'])->name('home');
+Route::get('/', [UserController::class, 'home'])->name('home');
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
@@ -23,12 +19,9 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/account/profile/update', [UserController::class, 'update'])->name('profile.update');
 
 
-Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
-Route::get('/', function () {
-    return view('welcome');
+    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+    Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
 });
-
 
 
 
