@@ -9,6 +9,7 @@ class Customer extends Model
     protected $table = 'products';
 
     protected $fillable = [
+        
         'name',
         'price',
         'description',
@@ -18,4 +19,9 @@ class Customer extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
