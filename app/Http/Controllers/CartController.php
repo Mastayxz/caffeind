@@ -5,19 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Product; // Pastikan model Product di-import
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth; // Auth facade sudah benar
 
 class CartController extends Controller
 {
-    // ID user statis yang akan digunakan untuk pengujian
-    // Pastikan untuk mengembalikan ini ke Auth::user()->id setelah pengujian selesai
-    private $staticUserId = 1;
-
     public function index()
     {
-        $userId = $this->staticUserId;
+        $userId = Auth::id();
         $cartItems = Cart::where('user_id', $userId)->with('product')->get();
-        return view('cart.index', compact('cartItems'));
+        return view('cart', compact('cartItems'));
     }
 
     public function store(Request $request)
@@ -27,14 +23,16 @@ class CartController extends Controller
             'quantity' => 'required|integer|min:1',
         ]);
 
-        $userId = $this->staticUserId;
+        $userId = Auth::id();
         $productId = $request->input('product_id');
         $quantity = $request->input('quantity');
 
-        // Dapatkan produk untuk memeriksa stok
+        if (!$userId) {
+            return redirect()->back()->with('error', 'Anda harus login untuk menambahkan produk ke keranjang.');
+        }
+
         $product = Product::find($productId);
 
-        // Jika produk tidak ditemukan atau stoknya kurang
         if (!$product || $product->stock < $quantity) {
             return redirect()->back()->with('error', 'Stok produk tidak mencukupi.');
         }
@@ -44,10 +42,8 @@ class CartController extends Controller
                         ->first();
 
         if ($cartItem) {
-            // Hitung total quantity setelah update
             $newQuantity = $cartItem->quantity + $quantity;
 
-            // Cek kembali stok setelah penambahan
             if ($product->stock < $newQuantity) {
                 return redirect()->back()->with('error', 'Stok produk tidak mencukupi untuk penambahan ini.');
             }
@@ -67,7 +63,7 @@ class CartController extends Controller
 
     public function update(Request $request, Cart $cart)
     {
-        if ($cart->user_id !== $this->staticUserId) {
+        if ($cart->user_id !== Auth::id()) {
             return redirect()->back()->with('error', 'Anda tidak memiliki izin untuk mengubah item keranjang ini.');
         }
 
@@ -77,10 +73,8 @@ class CartController extends Controller
 
         $newQuantity = $request->input('quantity');
 
-        // Dapatkan produk untuk memeriksa stok
-        $product = $cart->product; // Menggunakan relasi untuk mendapatkan produk
+        $product = $cart->product;
 
-        // Cek stok produk
         if (!$product || $product->stock < $newQuantity) {
             return redirect()->back()->with('error', 'Stok produk tidak mencukupi untuk jumlah yang diminta.');
         }
@@ -93,7 +87,8 @@ class CartController extends Controller
 
     public function destroy(Cart $cart)
     {
-        if ($cart->user_id !== $this->staticUserId) {
+        // Pastikan user yang sedang login adalah pemilik item keranjang ini
+        if ($cart->user_id !== Auth::id()) {
             return redirect()->back()->with('error', 'Anda tidak memiliki izin untuk menghapus item keranjang ini.');
         }
 
