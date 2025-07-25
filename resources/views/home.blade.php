@@ -92,7 +92,7 @@
                     <div class="bg-light-brown p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <img src="{{ asset('images/caffeind-bg.jpg') }}" alt="">
                         <h2 class="text-2xl font-semibold">{{ $product->name }}</h2>
-                        <p class="text-lg mt-2">${{ number_format($product->price, 2) }}</p>
+                        <p class="text-lg mt-2">Rp. {{ number_format($product->price, 2) }}</p>
                         @if ($product->stock)
                             <p class="text-sm mt-1">Stock: {{ $product->stock }}</p>
                         @endif
