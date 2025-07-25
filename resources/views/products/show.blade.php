@@ -18,7 +18,8 @@
 @section('content')
     <header class="bg-coffee-brown text-cream p-6 text-center">
         <h1 class="text-4xl font-bold">Coffee Shop</h1>
-        <a href="{{ route('products.index') }}" class="mt-2 inline-block text-cream hover:text-light-brown bg-light-brown text-coffee-brown px-4 py-2 rounded-lg shadow-md hover:bg-dark-brown hover:text-cream transition-colors duration-300 flex items-center">
+        <a href="{{ route('products.index') }}"
+            class="mt-2 inline-block text-cream hover:text-light-brown bg-light-brown text-coffee-brown px-4 py-2 rounded-lg shadow-md hover:bg-dark-brown hover:text-cream transition-colors duration-300 flex items-center">
             <span class="mr-2">←</span> Back to Menu
         </a>
     </header>
@@ -36,9 +37,10 @@
             </div>
             <div class="md:w-1/2 w-full md:pl-8">
                 <h2 class="text-3xl font-bold mb-2">{{ $product->name }}</h2>
-                <p class="text-xl font-semibold text-coffee-brown mb-4">Price: Rp.{{ number_format($product->price, 2) }}</p>
+                <p class="text-xl font-semibold text-coffee-brown mb-4">Price: Rp.{{ number_format($product->price, 2) }}
+                </p>
                 <p class="mb-2">Stock: <span class="font-semibold">{{ $product->stock ?? 'N/A' }}</span></p>
-                <p class="mb-4">Category ID: {{ $product->category_id ?? '-' }}</p>
+                <p class="mb-4">Category: {{ $product->category->name ?? '-' }}</p>
                 <p class="mb-6 text-gray-700">{{ $product->description ?? 'No description available' }}</p>
                 @if ($product->stock > 0)
                     <form action="{{ route('cart.store') }}" method="POST" class="mb-4">
@@ -46,15 +48,14 @@
                         <input type="hidden" name="product_id" value="{{ $product->id }}">
                         <input type="hidden" name="quantity" value="1">
                         <button type="submit"
-                            class="bg-coffee-brown text-cream px-6 py-2 rounded hover:bg-light-brown font-bold transition cursor-pointer">
-                            Masukkan Ke Keranjang
+                            class="bg-amber-900  text-white px-6 py-2 rounded hover:bg-light-brown font-bold transition cursor-pointer">
+                            <i class="fa-solid fa-cart-plus"></i> Masukkan Ke Keranjang
                         </button>
                     </form>
                 @else
                     <p class="text-sm mt-1 text-red-600 font-bold">Stok Habis</p>
                 @endif
-                <p class="text-xs text-gray-500">Created: {{ $product->created_at ?? 'Not set' }} | Updated:
-                    {{ $product->updated_at ?? 'Not set' }}</p>
+
             </div>
         </div>
     </main>

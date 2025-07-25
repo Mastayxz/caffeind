@@ -12,29 +12,31 @@
 
 <body class="bg-gray-100 text-gray-900 ">
     <header class="bg-white shadow p-4 mb-6">
-    <div class="container mx-auto flex justify-between items-center">
-        <h1 class="text-xl font-bold flex items-center space-x-2">
-            <a href="{{ url('/') }}" class="flex items-center space-x-2">
-                <img src="{{ asset('images/BrandLogo.png') }}" alt="Caffeind Logo" class="w-10 h-auto">
-                <span>Caffeind</span>
-            </a>
-        </h1>
-        <nav class="flex items-center w-full justify-between">
-            <!-- Centered Navigation Links -->
-            <div class="flex justify-center flex-1">
-                <a href="{{ route('products.index') }}" class="mx-4 hover:text-gray-500">Products</a>
-                <a href="{}" class="mx-4 hover:text-gray-500">Cart</a>
-                <div class="flex items-center mx-4">
-                    <form action="{{ route('search') }}" method="GET" class="flex items-center">
-                        <input type="text" name="query" placeholder="Search coffee..." class="border border-gray-300 rounded-l-md px-3 py-1 focus:outline-none focus:ring-2 focus:ring-coffee-brown">
-                        <button type="submit" class="bg-coffee-brown text-cream rounded-r-md px-3 py-1 hover:bg-dark-brown transition-colors duration-300">🔍</button>
-                    </form>
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold flex items-center space-x-2">
+                <a href="{{ url('/') }}" class="flex items-center space-x-2">
+                    <img src="{{ asset('images/BrandLogo.png') }}" alt="Caffeind Logo" class="w-10 h-auto">
+                    <span>Caffeind</span>
+                </a>
+            </h1>
+            <nav class="flex items-center w-full justify-between">
+                <!-- Centered Navigation Links -->
+                <div class="flex justify-center flex-1">
+                    <a href="{{ route('products.index') }}" class="mx-4 hover:text-gray-500">Products</a>
+                    <a href="{{ route('cart.index') }}" class="mx-4 hover:text-gray-500">Cart</a>
+                    <div class="flex items-center mx-4">
+                        <form action="{{ route('search') }}" method="GET" class="flex items-center">
+                            <input type="text" name="query" placeholder="Search coffee..."
+                                class="border border-gray-300 rounded-l-md px-3 py-1 focus:outline-none focus:ring-2 focus:ring-coffee-brown">
+                            <button type="submit"
+                                class="bg-coffee-brown text-cream rounded-r-md px-3 py-1 hover:bg-dark-brown transition-colors duration-300">🔍</button>
+                        </form>
+                    </div>
                 </div>
-            </div>
-            <!-- Search Bar -->
-            <!-- Authentication Links -->
-            <div class="flex items-center space-x-4">
-                @auth
+                <!-- Search Bar -->
+                <!-- Authentication Links -->
+                <div class="flex items-center space-x-4">
+                    @auth
                         @if (Auth::user()->role === 'user')
                             <form method="POST" action="{{ route('logout') }}" class="inline">
                                 @csrf
@@ -48,15 +50,15 @@
                                 @csrf
                                 <button type="submit" class="text-red-500 hover:text-red-700">Logout</button>
                             </form>
-                            @endif
-                        @else
+                        @endif
+                    @else
                         <a href="{{ route('login') }}" class="mr-4 hover:text-gray-500">Login</a>
                         <a href="{{ route('register') }}" class="hover:text-gray-500">Register</a>
                     @endauth
-            </div>
-        </nav>
-    </div>
-</header>
+                </div>
+            </nav>
+        </div>
+    </header>
     @if (session('success'))
         <div class="bg-green-100 text-green-800 p-2 mb-4 rounded">
             {{ session('success') }}

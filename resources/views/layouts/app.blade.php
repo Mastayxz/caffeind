@@ -6,6 +6,9 @@
     <title>@yield('title', 'Laravel App')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+        integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -23,7 +26,7 @@
                 <!-- Centered Navigation Links -->
                 <div class="flex justify-center flex-1">
                     <a href="{{ route('products.index') }}" class="mx-4 hover:text-gray-500">Products</a>
-                    <a href="{}" class="mx-4 hover:text-gray-500">Cart</a>
+                    <a href="{{ route('cart.index') }}" class="mx-4 hover:text-gray-500">Cart</a>
                     <div class="flex items-center mx-4">
                         <form action="{{ route('search') }}" method="GET" class="flex items-center">
                             <input type="text" name="query" placeholder="Search coffee..."
@@ -112,7 +115,7 @@
             <div class="text-gray-500 text-sm">
                 &copy; {{ date('Y') }} Caffeind. All rights reserved.
             </div>
-            <div class="flex space-x-4">
+            <div class="flex space-x-4 ">
                 <a href="#" class="hover:text-blue-500 transition-colors"><i class="fab fa-facebook"></i></a>
                 <a href="#" class="hover:text-pink-500 transition-colors"><i class="fab fa-instagram"></i></a>
                 <a href="#" class="hover:text-blue-400 transition-colors"><i class="fab fa-twitter"></i></a>
