@@ -23,7 +23,7 @@
             <!-- Centered Navigation Links -->
             <div class="flex justify-center flex-1">
                 <a href="{{ route('products.index') }}" class="mx-4 hover:text-gray-500">Products</a>
-                <a href="{}" class="mx-4 hover:text-gray-500">Cart</a>
+                <a href="{{ route('cart.index') }}" class="mx-4 hover:text-gray-500">Cart</a>
                 <div class="flex items-center mx-4">
                     <form action="{{ route('search') }}" method="GET" class="flex items-center">
                         <input type="text" name="query" placeholder="Search coffee..." class="border border-gray-300 rounded-l-md px-3 py-1 focus:outline-none focus:ring-2 focus:ring-coffee-brown">

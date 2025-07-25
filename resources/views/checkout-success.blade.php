@@ -105,8 +105,8 @@
 
             <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
                 <a href="{{ url('/products') }}"
-                    class="bg-coffee-brown text-cream px-6 py-3 rounded-md hover:bg-dark-brown transition-colors duration-300 text-center">
-                    Lanjutkan Belanja
+                class="bg-[#706D54] text-white px-6 py-3 rounded-md transition-colors duration-300 font-semibold text-md cursor-pointer text-center">
+                    Lanjutkan Belanja 
                 </a>
             </div>
         </div>
