@@ -16,23 +16,23 @@
                 <div class="lg:col-span-2">
                     <h2 class="text-2xl font-semibold mb-4 text-coffee-brown">Ringkasan Pesanan</h2>
                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <table class="w-full text-sm text-left rtl:text-right text-gray-500">
                             <thead class="text-xs text-white uppercase bg-[#706D54]">
                                 <tr>
                                     <th scope="col" class="px-6 py-3">
-                                        Product name
+                                        Nama produk
                                     </th>
                                     <th scope="col" class="px-6 py-3">
-                                        Color
+                                        Harga Satuan
                                     </th>
                                     <th scope="col" class="px-6 py-3">
-                                        Category
+                                        Jumlah
                                     </th>
                                     <th scope="col" class="px-6 py-3">
-                                        Price
+                                        Subtotal
                                     </th>
                                     <th scope="col" class="px-6 py-3">
-                                        Action
+                                        Aksi
                                     </th>
                                 </tr>
                             </thead>
@@ -42,7 +42,7 @@
                                 @foreach ($cartItems as $item)
                                     <tr class="border-b border-gray-200">
                                         <th scope="row"
-                                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                             {{ $item->product->name }}
                                         </th>
                                         <td class="px-6 py-4">
