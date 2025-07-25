@@ -6,6 +6,7 @@ use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Product;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,16 +14,18 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        User::factory()->create([
+            'name' => 'admin',
+            'email' => '1010k@example.com',
+            'password' => Hash::make('password'),
+            'role' => 'admin',
+        ]);
 
         // $this->call(UserSeeder::class);
         // $this->call(CategorySeeder::class);
         // $this->call(ProductSeeder::class);
         // $this->call(CartSeeder::class);
         
-        Product::factory()->count(10)->create();
+        // Product::factory()->count(10)->create();
     }
 }

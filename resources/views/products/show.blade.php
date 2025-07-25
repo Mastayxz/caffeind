@@ -18,8 +18,9 @@
 @section('content')
     <header class="bg-coffee-brown text-cream p-6 text-center">
         <h1 class="text-4xl font-bold">Coffee Shop</h1>
-        <a href="{{ route('products.index') }}" class="mt-2 inline-block text-cream underline hover:text-light-brown">Back to
-            Menu</a>
+        <a href="{{ route('products.index') }}" class="mt-2 inline-block text-cream hover:text-light-brown bg-light-brown text-coffee-brown px-4 py-2 rounded-lg shadow-md hover:bg-dark-brown hover:text-cream transition-colors duration-300 flex items-center">
+            <span class="mr-2">←</span> Back to Menu
+        </a>
     </header>
     <main class="container mx-auto p-6">
         <div class="max-w-full mx-auto bg-light-brown p-8 rounded-lg shadow-lg flex flex-col md:flex-row items-center">
@@ -35,7 +36,7 @@
             </div>
             <div class="md:w-1/2 w-full md:pl-8">
                 <h2 class="text-3xl font-bold mb-2">{{ $product->name }}</h2>
-                <p class="text-xl font-semibold text-coffee-brown mb-4">Price: ${{ number_format($product->price, 2) }}</p>
+                <p class="text-xl font-semibold text-coffee-brown mb-4">Price: Rp.{{ number_format($product->price, 2) }}</p>
                 <p class="mb-2">Stock: <span class="font-semibold">{{ $product->stock ?? 'N/A' }}</span></p>
                 <p class="mb-4">Category ID: {{ $product->category_id ?? '-' }}</p>
                 <p class="mb-6 text-gray-700">{{ $product->description ?? 'No description available' }}</p>
