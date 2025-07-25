@@ -13,35 +13,48 @@
     <a href="{{ route('products.index') }}">Back to List</a>
 </body>
 </html> -->
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coffee Shop - {{ $product->name }}</title>
-    @vite(['resources/css/app.css'])
-</head>
-<body class="bg-cream text-dark-brown font-sans">
+@extends('layouts.app')
+@section('title', 'Product List')
+@section('content')
     <header class="bg-coffee-brown text-cream p-6 text-center">
         <h1 class="text-4xl font-bold">Coffee Shop</h1>
-        <a href="{{ route('products.index') }}" class="mt-2 inline-block text-cream underline hover:text-light-brown">Back to Menu</a>
+        <a href="{{ route('products.index') }}" class="mt-2 inline-block text-cream underline hover:text-light-brown">Back to
+            Menu</a>
     </header>
     <main class="container mx-auto p-6">
-        <div class="max-w-2xl mx-auto bg-light-brown p-6 rounded-lg shadow-lg">
-            <h2 class="text-3xl font-bold">{{ $product->name }}</h2>
-            <p class="text-xl mt-4">Price: ${{ number_format($product->price, 2) }}</p>
-            <p class="mt-2">Description: {{ $product->description ?? 'No description available' }}</p>
-            @if ($product->stock)
-                <p class="mt-2">Stock: {{ $product->stock }}</p>
-            @endif
-            @if ($product->category_id)
-                <p class="mt-2">Category ID: {{ $product->category_id }}</p>
-            @endif
-            <p class="mt-2">Image: {{ $product->image ?? 'No image available' }}</p>
-            <p class="mt-2">Created At: {{ $product->created_at ?? 'Not set' }}</p>
-            <p class="mt-2">Updated At: {{ $product->updated_at ?? 'Not set' }}</p>
+        <div class="max-w-full mx-auto bg-light-brown p-8 rounded-lg shadow-lg flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 w-full flex justify-center mb-6 md:mb-0">
+                @if ($product->image)
+                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
+                        class="w-64 h-64 object-cover rounded-lg shadow">
+                @else
+                    <div class="w-full h-auto flex items-center justify-center bg-gray-200 rounded-lg text-gray-500">
+                        <img src="{{ asset('images/caffeind-bg.jpg') }}" alt="">
+                    </div>
+                @endif
+            </div>
+            <div class="md:w-1/2 w-full md:pl-8">
+                <h2 class="text-3xl font-bold mb-2">{{ $product->name }}</h2>
+                <p class="text-xl font-semibold text-coffee-brown mb-4">Price: ${{ number_format($product->price, 2) }}</p>
+                <p class="mb-2">Stock: <span class="font-semibold">{{ $product->stock ?? 'N/A' }}</span></p>
+                <p class="mb-4">Category ID: {{ $product->category_id ?? '-' }}</p>
+                <p class="mb-6 text-gray-700">{{ $product->description ?? 'No description available' }}</p>
+                @if ($product->stock > 0)
+                    <form action="{{ route('cart.store') }}" method="POST" class="mb-4">
+                        @csrf
+                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                        <input type="hidden" name="quantity" value="1">
+                        <button type="submit"
+                            class="bg-coffee-brown text-cream px-6 py-2 rounded hover:bg-light-brown font-bold transition cursor-pointer">
+                            Masukkan Ke Keranjang
+                        </button>
+                    </form>
+                @else
+                    <p class="text-sm mt-1 text-red-600 font-bold">Stok Habis</p>
+                @endif
+                <p class="text-xs text-gray-500">Created: {{ $product->created_at ?? 'Not set' }} | Updated:
+                    {{ $product->updated_at ?? 'Not set' }}</p>
+            </div>
         </div>
     </main>
-</body>
-</html>
+@endsection

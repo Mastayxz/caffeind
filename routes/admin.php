@@ -7,8 +7,11 @@ use App\Http\Controllers\Admin\CategoryController;
 
 // use App\Http\Controllers\AdminController;
 
-Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
-    Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+Route::prefix('admin')->middleware(['auth','isAdmin'])->name('admin.')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'index'])->name(name: 'dashboard');
+    Route::get('/users', [AdminController::class, 'showUser'])->name('users');
+    Route::put('/users/{id}', [AdminController::class, 'updateUser'])->name('user.update');
+    Route::delete('/users/{id}', [AdminController::class, 'destroyUser'])->name('user.destroy');
     Route::resource('product', ProductController::class);
     Route::resource('category', CategoryController::class);
 });
