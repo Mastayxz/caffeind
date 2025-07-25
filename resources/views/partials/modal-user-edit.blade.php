@@ -18,7 +18,7 @@
             </div>
             <div class="mb-4">
                 <label for="phone-{{ $user->id }}" class="block mb-1 font-medium">No. Telp</label>
-                <input type="text" id="phone-{{ $user->id }}" name="phone" value="{{ $user->customers->phone ?? '' }}" class="w-full border border-gray-300 rounded px-3 py-2">
+                <input type="number" id="phone-{{ $user->id }}" name="phone" value="{{ $user->customers->phone ?? '' }}" class="w-full border border-gray-300 rounded px-3 py-2">
             </div>
 
             <div class="flex justify-end gap-2">
