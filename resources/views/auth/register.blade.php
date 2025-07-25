@@ -10,7 +10,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="bg-gray-100 text-gray-900 overflow-hidden">
+<body class="bg-gray-100 text-gray-900">
     <div class="min-h-screen grid grid-cols-1 lg:grid-cols-3">
         <div class="relative p-8 md:p-12 flex flex-col justify-center lg:col-span-2"
             style="background-image: url('{{ asset('images/caffeind-bg.jpg') }}'); background-size: cover; background-position: center;">

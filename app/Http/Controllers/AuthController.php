@@ -46,6 +46,7 @@ class AuthController extends Controller
         ]);
     }
 
+
     public function register(Request $request)
     {
         // Validasi input
@@ -91,6 +92,8 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout();
+        session()->invalidate();
+        session()->regenerateToken();
         return redirect('/login')->with('success', 'Anda telah berhasil logout.');
     }
 }
