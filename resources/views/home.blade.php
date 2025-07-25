@@ -35,15 +35,24 @@
             <!-- Authentication Links -->
             <div class="flex items-center space-x-4">
                 @auth
-                    <a href="{{ route('account.profile') }}" class="mr-4 hover:text-gray-500">{{ Auth::user()->name }}</a>
-                    <form method="POST" action="{{ route('logout') }}" class="inline">
-                        @csrf
-                        <button type="submit" class="text-red-500 hover:text-red-700">Logout</button>
-                    </form>
-                @else
-                    <a href="{{ route('login') }}" class="mr-4 hover:text-gray-500">Login</a>
-                    <a href="{{ route('register') }}" class="hover:text-gray-500">Register</a>
-                @endauth
+                        @if (Auth::user()->role === 'user')
+                            <form method="POST" action="{{ route('logout') }}" class="inline">
+                                @csrf
+                                <button type="submit" class="text-red-500 hover:text-red-700">Logout</button>
+                            </form>
+                            <a href="{{ route('account.profile') }}"
+                                class="mr-4 hover:text-gray-500">{{ Auth::user()->name }}</a>
+                        @elseif (Auth::user()->role === 'admin')
+                            <a href="{{ route('admin.dashboard') }}" class="mr-4 hover:text-gray-500">Admin Dashboard</a>
+                            <form method="POST" action="{{ route('logout') }}" class="inline">
+                                @csrf
+                                <button type="submit" class="text-red-500 hover:text-red-700">Logout</button>
+                            </form>
+                            @endif
+                        @else
+                        <a href="{{ route('login') }}" class="mr-4 hover:text-gray-500">Login</a>
+                        <a href="{{ route('register') }}" class="hover:text-gray-500">Register</a>
+                    @endauth
             </div>
         </nav>
     </div>
