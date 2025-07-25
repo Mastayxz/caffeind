@@ -87,8 +87,10 @@
                     </tr>
                 @endforelse
             </tbody>
-
         </table>
+        <div class="mt-4">
+            {{ $user->links() }}
+        </div>
     </div>
 
     <script>
