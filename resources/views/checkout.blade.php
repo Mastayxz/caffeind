@@ -3,9 +3,9 @@
 @section('title', 'Checkout')
 
 @section('content')
+<div class="container mx-auto p-6">
     <div class="bg-white shadow-md rounded-lg p-8">
         <h1 class="text-3xl font-bold mb-8 text-center text-coffee-brown">Selesaikan Pesanan Anda</h1>
-
         @if($cartItems->isEmpty())
             <p class="text-center text-gray-600 text-lg">Keranjang Anda kosong. Tidak ada yang bisa di-checkout.</p>
             <div class="flex justify-center mt-6">
@@ -15,30 +15,80 @@
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div class="lg:col-span-2">
                     <h2 class="text-2xl font-semibold mb-4 text-coffee-brown">Ringkasan Pesanan</h2>
-                    <div class="overflow-x-auto bg-gray-50 p-4 rounded-md shadow-sm">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-100">
+                    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                            <thead class="text-xs text-white uppercase bg-[#706D54]">
                                 <tr>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Produk</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Harga</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jumlah</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Subtotal</th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Product name
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Color
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Category
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Price
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Action
+                                    </th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                                @foreach($cartItems as $item)
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $item->product->name }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Rp{{ number_format($item->product->price, 0, ',', '.') }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $item->quantity }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Rp{{ number_format($item->product->price * $item->quantity, 0, ',', '.') }}</td>
+                            <tbody>
+                                @php $totalPrice = 0; @endphp
+
+                                @foreach ($cartItems as $item)
+                                    <tr class="border-b border-gray-200">
+                                        <th scope="row"
+                                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            {{ $item->product->name }}
+                                        </th>
+                                        <td class="px-6 py-4">
+                                            Rp{{ number_format($item->product->price, 0, ',', '.') }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <form action="{{ route('cart.update', $item->id) }}" method="POST"
+                                                class="flex items-center space-x-2">
+                                                @csrf
+                                                @method('PUT')
+                                                <input type="number" name="quantity" value="{{ $item->quantity }}"
+                                                    min="1"
+                                                    class="w-20 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                                <button type="submit"
+                                                    class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-3 rounded text-sm">
+                                                    Update
+                                                </button>
+                                            </form>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            Rp{{ number_format($item->product->price * $item->quantity, 0, ',', '.') }}
+                                        </td>
+                                        <td class="py-3 px-4">
+                                            <form action="{{ route('cart.destroy', $item->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                    class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-3 rounded text-sm"
+                                                    onclick="return confirm('Yakin ingin menghapus produk ini dari keranjang?')">
+                                                    Hapus
+                                                </button>
+                                            </form>
+                                        </td>
                                     </tr>
+                                    @php $totalPrice += $item->product->price * $item->quantity; @endphp
                                 @endforeach
                             </tbody>
                             <tfoot>
-                                <tr class="bg-gray-100">
-                                    <td colspan="3" class="px-6 py-4 whitespace-nowrap text-right text-base font-bold text-gray-900">Total Pembayaran:</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-base font-bold text-coffee-brown">Rp{{ number_format($totalAmount, 0, ',', '.') }}</td>
+                                <tr class="text-xs bg-[#b3ac73]">
+                                    <td colspan="3"
+                                        class="py-3 px-4 text-right text-base font-semibold text-white">
+                                        Total Belanja:
+                                    </td>
+                                    <td colspan="2" class="py-3 px-4 text-base font-semibold text-white">
+                                        Rp{{ number_format($totalPrice, 0, ',', '.') }}
+                                    </td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -89,7 +139,7 @@
                             @enderror
                         </div>
 
-                        <button type="submit" class="w-full bg-green-600 text-white px-6 py-3 rounded-md hover:bg-green-700 transition-colors duration-300 font-semibold text-lg">
+                        <button type="submit" class="w-full bg-[#706D54] text-white px-6 py-3 rounded-md transition-colors duration-300 font-semibold text-md cursor-pointer">
                             Selesaikan Pesanan
                         </button>
                     </form>
