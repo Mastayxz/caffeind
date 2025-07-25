@@ -39,13 +39,19 @@
                 <p class="mb-2">Stock: <span class="font-semibold">{{ $product->stock ?? 'N/A' }}</span></p>
                 <p class="mb-4">Category ID: {{ $product->category_id ?? '-' }}</p>
                 <p class="mb-6 text-gray-700">{{ $product->description ?? 'No description available' }}</p>
-                <form action="" method="POST" class="mb-4">
-                    @csrf
-                    <button type="submit"
-                        class="bg-coffee-brown text-cream px-6 py-2 rounded hover:bg-light-brown font-bold transition">
-                        Add to Cart
-                    </button>
-                </form>
+                @if ($product->stock > 0)
+                    <form action="{{ route('cart.store') }}" method="POST" class="mb-4">
+                        @csrf
+                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                        <input type="hidden" name="quantity" value="1">
+                        <button type="submit"
+                            class="bg-coffee-brown text-cream px-6 py-2 rounded hover:bg-light-brown font-bold transition cursor-pointer">
+                            Masukkan Ke Keranjang
+                        </button>
+                    </form>
+                @else
+                    <p class="text-sm mt-1 text-red-600 font-bold">Stok Habis</p>
+                @endif
                 <p class="text-xs text-gray-500">Created: {{ $product->created_at ?? 'Not set' }} | Updated:
                     {{ $product->updated_at ?? 'Not set' }}</p>
             </div>
