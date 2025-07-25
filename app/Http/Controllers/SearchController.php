@@ -11,6 +11,7 @@ class SearchController extends Controller
     $query = $request->input('query');
     $validated = $request->validate([
         'query' => 'nullable|string|max:100', // Limit to 100 characters
+        
     ]);
 
     $products = Product::where('name', 'like', "%{$validated['query']}%")
@@ -19,9 +20,8 @@ class SearchController extends Controller
     // $gears = Gear::where('name', 'like', "%{$query}%")
     //                 ->orWhere('description', 'like', "%{$query}%")
     //                 ->get();
-
-    $results = $products->merge($gears); // Combine results
-    return view('search.results', compact('results')); // Use a new view for combined results
+ // Combine results
+    return view('products.index', compact('products')); // Use a new view for combined results
     }
 }
 ?>

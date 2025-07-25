@@ -216,56 +216,7 @@
         </div>
     </div>
 
-    <!-- Edit Category Modal -->
-    <div id="edit-category-modal" tabindex="-1" aria-hidden="true"
-        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div class="relative p-4 w-full max-w-2xl max-h-full">
-            <!-- Modal content -->
-            <div class="relative bg-white rounded-lg shadow border border-gray-200">
-                <!-- Modal header -->
-                <div class="flex items-center justify-between p-4 border-b rounded-t border-gray-200">
-                    <h3 class="text-xl font-semibold text-gray-900">
-                        Edit Category
-                    </h3>
-                    <button type="button"
-                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
-                        data-modal-toggle="edit-category-modal">
-                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 14 14">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                        </svg>
-                        <span class="sr-only">Close modal</span>
-                    </button>
-                </div>
 
-                <!-- Modal body -->
-                <form class="p-6 space-y-6" method="POST" action="{{ route('admin.category.update', $category->id) }}"
-                    enctype="multipart/form-data">
-                    @csrf
-                    @method('PUT')
-                    <div class="grid grid-cols-1 gap-6">
-                        <div>
-                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900">category
-                                Name</label>
-                            <input type="text" name="name" id="name" value="{{ $category->name }}"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#706D54] focus:border-[#706D54] block w-full p-2.5"
-                                placeholder="category name" required>
-                        </div>
-
-                    </div>
-            </div>
-
-            <!-- Modal footer -->
-            <div class="flex items-center pt-6 border-t border-gray-200">
-                <button type="submit"
-                    class="text-white bg-[#706D54] hover:bg-[#504d30] focus:ring-4 focus:outline-none focus:ring-[#b3ac73] font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                    Update Category
-                </button>
-            </div>
-            </form>
-        </div>
-    </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.3.0/dist/flowbite.min.js"></script>
