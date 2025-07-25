@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SearchController;
 
 Route::get('/', [UserController::class, 'home'])->name('home');
 
@@ -21,6 +22,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
     Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
+    Route::get('/search', [SearchController::class, 'index'])->name('search');
 });
 
 
